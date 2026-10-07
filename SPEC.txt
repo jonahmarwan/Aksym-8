@@ -1,0 +1,63 @@
+===========================
+=    The Aksym-8 Specs    =
+===========================
+
+
+== OVERVIEW ==
+
+The Aksym-8 computer is a minicomputer designed with an 8bit CPU made to only run pong(oh yeah and its made using only CMOS integrated circuits WOOO)
+
+== INSTRUCTIONS ==
+
+0: MD <reg>, <imm4/reg> => reg = imm4/reg <> COD = 00000000
+1: CMP <reg>, <imm4/reg> <> COD = 00000001
+2: JNZ <IR> => reg != 0 ? ^> IR <> COD = 00000010
+3: JZ <IR> => reg == 0 ? ^> IR <> COD = 00000011
+4: JMT <IR> => reg > imm4/reg ? ^> IR <> COD = 00000100
+5: JEQ <IR> => reg == imm4/reg ? ^> IR <> COD = 00000101
+6: JLT <IR> => reg < imm4/reg ? ^> IR <> COD = 00000110
+7: ADD <reg>, <imm4/reg> => reg = reg + imm4/reg <> COD = 00000111
+8: ADC <reg>, <imm4/reg> => reg = reg + imm4/reg + c <> COD = 00001000
+9: SBB <reg>, <imm4/reg> => reg = reg - imm4/reg - b <> COD = 00001001
+A: OR <reg>, <imm4/reg> => reg = reg | imm4/reg <> COD = 00001010
+B: NOR <reg>, <imm4/reg> => reg = !(reg | imm4/reg) <> COD = 00001011
+C: SUB <reg>, <imm4/reg> => reg = reg - imm4/reg <> COD = 00001100
+D: MVA <imm8> => reg A = imm8 <> COD = 00001101
+E: MVB <imm8> => reg B = imm8 <> COD = 00001110
+F: MVC <imm8> => reg C = imm8 <> COD = 00001111
+10: MVD <imm8> => reg D = imm8 <> COD = 00010000
+12: PUSH <imm4/reg> => [--SP] = imm4/reg <> COD = 00010010
+13: POP <reg/ptr> -> reg = [++SP] <> COD = 00010011
+17: INB <reg>, <PORT> => <reg> = [PORT] <> COD = 00010111
+18: OUTB <imm4/reg>, <PORT> = [PORT] = <reg> <> COD = 00011000
+1A: LGI <imm8> = LCDIR = imm8 <> COD = 00011010
+1B: LGD <imm8> = LCDDR = imm8 <> COD = 00011011
+1E: HLT => --- <> COD = 00011110
+1F: RST => regs = --- <> COD = 00011111
+
+
+== STACK == 
+
+The Stack is a 16 bit long(optional depth) storage unit for instructions, addresses, and variables,
+each storage location is identified by a UNIQUE POINTER(UP) represented with a hex value.
+
+== REGISTERS ==
+
+** ALL REGISTERS ARE 8 BITS, EXCEPT THE OPCODE REGISTER WHICH ONLY HAS 5 USABLE BITS **
+
+A: gp RW 
+B: gp RW
+C: gp RW
+D: gp RW
+OPCDr: RW for opcode
+OPRD1r: RW for first operand
+OPRD2r: RW for second operand
+CMPr: RW for comparison operation
+JOS: RW for jumping operation
+AOS: RW for arithmetic operation
+CTRr: RW for counter value (in binary)
+nxtCTRr: RW for the next counter value(in binary)
+LGI: RW for 16X2 LCD instruction
+LGD: RW for 16x LCD data
+AR: RW for arithmetic operation result(in binary)
+FLAGS: RW for arithmetic operation flags(NO FLAG included)
